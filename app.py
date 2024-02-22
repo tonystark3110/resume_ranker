@@ -1,7 +1,4 @@
 from dotenv import load_dotenv
-
-load_dotenv()
-
 import streamlit as st
 import os
 from PIL import Image
@@ -11,8 +8,39 @@ import base64
 
 import google.generativeai as genai
 
+# Load environment variables
+load_dotenv()
+
+# Configure GEMINI AI
 os.getenv("GOOGLE_API_KEY")
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
+
+# Streamlit App configuration
+st.set_page_config(page_title="SmartRecruit")
+
+# Custom CSS styles
+# Custom CSS styles with inline CSS for background image
+custom_css = """
+<style>
+/* Add your CSS styles here */
+body {
+    background-color: #b36e00; /* Change to your desired background color */
+}
+</style>
+<div style="background-image: url('https://pyxis.nymag.com/v1/imgs/217/c68/2150b3cdeb721f8d13997c2730bb12399c-08-detective-pikachu-review.2x.rsocial.w600.jpg'); background-size: cover; background-repeat: no-repeat; height: 100vh; display: flex; justify-content: center; align-items: center; font-family: Arial, sans-serif;">
+    <div style="background-color: rgba(255, 255, 255, 0.8); padding: 0px; border-radius: 0px;">
+        <!-- Your Streamlit content goes here -->
+        <h1>Welcome to Smart Recrurit</h1>
+        <p></p>
+    </div>
+</div>
+"""
+
+# Render custom CSS with inline styles
+st.markdown(custom_css, unsafe_allow_html=True)
+
+
+# Define functions
 
 def get_gemini_response(input, pdf_content, prompt):
     model = genai.GenerativeModel('gemini-pro-vision')
@@ -41,9 +69,7 @@ def input_pdf_setup(uploaded_file):
     else:
         raise FileNotFoundError("No file uploaded")
 
-## Streamlit App
-
-st.set_page_config(page_title="SmartRecruit")
+# Streamlit App
 
 st.header("SmartRecruit")
 st.subheader('This Application helps you in your Resume Review with help of GEMINI AI [LLM]')
@@ -54,13 +80,13 @@ pdf_content = ""
 if uploaded_file is not None:
     st.write("PDF Uploaded Successfully")
 
-submit1 = st.button("Tell Me About the Resume")
+submit1 = st.button("Tell Me About the Resume😃")
 
-submit2 = st.button("How Can I Improvise my Skills")
+submit2 = st.button("How Can I Improvise my Skills😺")
 
-submit3 = st.button("What are the Keywords That are Missing")
+submit3 = st.button("What are the Keywords That are Missing❓")
 
-submit4 = st.button("Percentage match")
+submit4 = st.button("Percentage match🤔")
 
 input_prompt1 = """
  You are an experienced Technical Human Resource Manager,your task is to review the provided resume against the job description. 
@@ -125,4 +151,4 @@ elif submit4:
 
 
 st.markdown("---")
-st.caption("Resume Expert - Making Job Applications Easier")
+st.caption("Review your resumes easier")
